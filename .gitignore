@@ -1,0 +1,17 @@
+node_modules
+dist
+.tmp
+.sass-cache
+bower_components
+
+app/launched-apps/demo-app/node_modules
+app/launched-apps/demo-app/dist
+app/launched-apps/demo-app/.tmp
+app/launched-apps/demo-app/.sass-cache
+app/launched-apps/demo-app/bower_components
+
+app/launched-apps/demo-chart/node_modules
+app/launched-apps/demo-chart/dist
+app/launched-apps/demo-chart/.tmp
+app/launched-apps/demo-chart/.sass-cache
+app/launched-apps/demo-chart/bower_components
