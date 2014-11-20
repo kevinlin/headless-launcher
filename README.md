@@ -9,3 +9,8 @@ This demonstrates the following:
 
 
 ## Building and Running 
+
+* the grunt connnect stuff (modules)
+* running the dist folders of the sub apps 
+* sub apps have to make a connection 
+

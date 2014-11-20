@@ -68,7 +68,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -81,7 +81,11 @@ module.exports = function (grunt) {
                 '/bower_components',
                 connect.static('./bower_components')
               ),
-              connect.static(appConfig.app)
+              connect.static(appConfig.app),
+              connect().use(
+                '/modules',
+                connect.static('./modules')
+              )
             ];
           }
         }
@@ -97,7 +101,11 @@ module.exports = function (grunt) {
                 '/bower_components',
                 connect.static('./bower_components')
               ),
-              connect.static(appConfig.app)
+              connect.static(appConfig.app),
+              connect().use(
+                '/modules',
+                connect.static('./modules')
+              )
             ];
           }
         }
@@ -384,6 +392,9 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+    ngdocs: {
+      all: ['app/**/*.js']
     }
   });
 
@@ -438,4 +449,6 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
+  grunt.registerTask('docs', ['ngdocs']);
 };

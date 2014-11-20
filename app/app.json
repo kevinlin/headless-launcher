@@ -1,0 +1,24 @@
+{
+    "devtools_port": 9090,
+    "startup_app": {
+        "name": "headless-launcher",
+        "url": "http://local:9000",
+        "uuid": "headless-launcher",
+        "applicationIcon": "http://localhost:5000/favicon.ico",
+        "autoShow": true,
+        "frame": true,
+        "maxHeight": 600,
+        "maxWidth": 300,
+        "maximizable": false
+    },
+    "runtime": {
+        "arguments": "",
+        "version": "v35"
+    },
+    "shortcut": {
+        "company": "OpenFin",
+        "description": "shared context app launcher ",
+        "icon": "http://localhost:5000/favicon.ico",
+        "name": "app-launcher"
+    }
+}

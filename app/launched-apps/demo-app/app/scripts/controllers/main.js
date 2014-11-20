@@ -8,10 +8,22 @@
  * Controller of the demoAppApp
  */
 angular.module('demoAppApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function ($scope, interappMessaging) {
+
+    var subscribeToUuid = 'headless-launcher',
+        topic = 'demo';
+
+    $scope.model = {
+      publicMessages: '',
+      privateMessages: ''
+    };
+
+    interappMessaging
+      .subscribe(subscribeToUuid, topic, function(message){
+        $scope.model.publicMessages = message;
+        if (!$scope.$$phase) {
+          $scope.$apply();
+        }
+      });
+
   });
