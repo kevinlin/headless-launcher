@@ -14,7 +14,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'interappMessaging'
+    'interappMessaging',
+    'dockingServer'
   ])
   .config(function ($routeProvider) {
     $routeProvider

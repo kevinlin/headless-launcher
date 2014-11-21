@@ -24,9 +24,16 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a ng-href="#">Home</a></li>
-          <li><a ng-href="#/about">About</a></li>
-          <li><a ng-href="#">Contact</a></li>
+          <li>
+            <button class="btn btn-default undock">
+              <span class="glyphicon glyphicon-resize-full"></span>
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-default dock">
+              <span class="glyphicon glyphicon-resize-small"></span>
+            </button>
+          </li>
         </ul>
         <h3 class="text-muted">demoApp</h3>
       </div>
@@ -34,7 +41,7 @@
       <div ng-view=""></div>
 
       <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+
       </div>
     </div>
 
@@ -71,6 +78,8 @@
 
     <!-- this is the custom messaging abstraction module  -->
     <script src="../../../modules/interapp-messaging/interapp-messaging.js"></script>
+
+    <script src="../../../modules/docking-adapter/docking-adapter.js"></script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>

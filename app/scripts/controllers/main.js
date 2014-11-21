@@ -8,7 +8,7 @@
  * Controller of the headlessDockerApp
  */
 angular.module('headlessDockerApp')
-  .controller('MainCtrl', function ($scope, appLauncher, interappMessaging) {
+  .controller('MainCtrl', function ($scope, appLauncher, interappMessaging, dockingServer) {
 
     var phrases = [
         'I love HTML5',
@@ -17,8 +17,13 @@ angular.module('headlessDockerApp')
         'CSS3 is great!',
         'Dinosaurs ate all my tacos?'
         ],
+        //return a random number between 0 and 10^exponent
+        randTo = function(exponent){
+          exponent = exponent || 1;
+          return (Math.round(Math.random() * Math.pow(10, exponent)));
+        },
         randomPhrase = function(){
-          return phrases[(Math.round(Math.random() * 10)) % phrases.length];
+          return phrases[randTo(1) % phrases.length];
         },
         topic = 'demo';
 
@@ -26,6 +31,8 @@ angular.module('headlessDockerApp')
 
     var updateIntervalId = setInterval(function(){
       interappMessaging.publish(topic, randomPhrase());
+      interappMessaging.send('demo-app', 'demo:secret', 'demo-app: '+randomPhrase() + ' ' + randTo(10) );
+      interappMessaging.send('demo-chart', 'demo:secret', 'demo-chart: '+randomPhrase() + ' ' + randTo(10));
     }, 3000);
 
     $scope.$on('$destroy',function(){

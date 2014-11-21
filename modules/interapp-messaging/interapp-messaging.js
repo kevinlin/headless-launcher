@@ -12,24 +12,22 @@
 angular.module('interappMessaging', [])
   .service('interappMessaging', function interappMessaging() {
 
-    //var that = this;
+    var that = this;
 
-    var send = function(){};
-    var publish = function(topic, message){
+    that.send = function(uuid, topic, message){
+      fin.desktop.InterApplicationBus.send(uuid, topic, message);
+      return that;
+    };
+    that.publish = function(topic, message){
       fin.desktop.InterApplicationBus.publish(topic,message);
+      return that;
     };
 
     // the callback should take `message, senderUuid`
-    var subscribe = function(uuid, topic, callback){
+    that.subscribe = function(uuid, topic, callback){
       fin.desktop.InterApplicationBus.subscribe(uuid, topic, callback);
+      return that;
     };
 
-    var listSubscribedApplications = function(){};
-
-    return {
-      send: send,
-      publish: publish,
-      listSubscribedApplications: listSubscribedApplications,
-      subscribe: subscribe
-    };
+    that.listSubscribedApplications = function(){};
   });
