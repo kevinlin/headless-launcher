@@ -35,18 +35,17 @@
             </button>
           </li> -->
         </ul>
-        <ul class="nav nav-pills pull-right">
+<!--         <ul class="nav nav-pills pull-right">
           <li ><a ng-href="#">Messages</a></li>
           <li><a ng-href="#/about">Chart</a></li>
-        </ul>
+        </ul> -->
 
-        <h3 class="text-muted">demoChart</h3>
+        <h3 class="text-muted">Chart Application</h3>
       </div>
 
       <div ng-view=""></div>
 
-      <div class="footer">
-      </div>
+
     </div>
 
 
@@ -77,6 +76,7 @@
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -84,14 +84,13 @@
     <script src="../../../modules/interapp-messaging/interapp-messaging.js"></script>
 
     <script src="../../../modules/docking-adapter/docking-adapter.js"></script>
-    <script src="../bower_components/d3/d3.js"></script>
-    <script src="../bower_components/nvd3/nv.d3.js"></script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/services/demo-data.js"></script>
+        <script src="scripts/services/charting.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -1,6 +1,9 @@
 // Generated on 2014-11-20 using generator-angular 0.9.8
 'use strict';
 
+var sys = require('sys'),
+    exec = require('child_process').exec;
+
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -349,8 +352,17 @@ module.exports = function (grunt) {
             '*.html',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
-            'fonts/*'
+            'fonts/*',
+            'launched-apps/demo-app/dist/**/*',
+            'launched-apps/demo-chart/dist/**/*',
+            '../modules',
+            '*.json'
           ]
+        }, {
+          expand: true,
+          cwd: 'modules',
+          dest: '<%= yeoman.dist %>/modules',
+          src: ['**/*']
         }, {
           expand: true,
           cwd: '.tmp/images',
@@ -399,6 +411,17 @@ module.exports = function (grunt) {
   });
 
 
+  grunt.registerTask('buidSubProjects', 'call grunt build for the sub projects', function(){
+    // exec('cd app/launched-apps/demo-chart;  grunt build;', function(error, stdout){
+    //     sys.puts(stdout);
+    // });
+    // exec('cd app/launched-apps/demo-app;  grunt build;', function(error, stdout){
+    //     sys.puts(stdout);
+    // });
+  });
+
+
+
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -428,6 +451,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
+    //'buidSubProjects',
     'clean:dist',
     'wiredep',
     'useminPrepare',

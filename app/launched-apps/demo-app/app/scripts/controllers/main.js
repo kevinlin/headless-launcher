@@ -10,7 +10,7 @@
  * Controller of the demoAppApp
  */
 angular.module('demoAppApp')
-  .controller('MainCtrl', function ($scope, interappMessaging, dockingAdapter) {
+  .controller('MainCtrl', function ($scope, interappMessaging, dockingAdapter, subscriptions) {
 
     dockingAdapter.init(fin.desktop.Window.getCurrent(), fin, document);
 
@@ -64,19 +64,25 @@ angular.module('demoAppApp')
         .publish('currentCompany', company);
     };
 
-    interappMessaging
-      .subscribe(subscribeToUuid, topic, function(message){
-        $scope.model.publicMessages = message;
-        if (!$scope.$$phase) {
-          $scope.$apply();
-        }
-      })
-      .subscribe(subscribeToUuid, secretTopic, function(message){
-        $scope.model.privateMessages = message;
-        if (!$scope.$$phase) {
-          $scope.$apply();
-        }
-      });
+    if (!subscriptions.hasSubscribed){
+      interappMessaging
+        .subscribe(subscribeToUuid, topic, function(message){
+          $scope.model.publicMessages = message;
+          if (!$scope.$$phase) {
+            $scope.$apply();
+          }
+        })
+        .subscribe(subscribeToUuid, secretTopic, function(message){
+          $scope.model.privateMessages = message;
+          if (!$scope.$$phase) {
+            $scope.$apply();
+          }
+        });
+
+      subscriptions.hasSubscribed = true;
+    }
+
+
 
 
 

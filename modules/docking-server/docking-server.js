@@ -37,7 +37,7 @@
             });
 
           fin.desktop.InterApplicationBus.subscribe("*", "dock-window-move", function(data) {
-            console.log('this is the data: dock-window-move', data);
+            //console.log('this is the data: dock-window-move', data);
             dockEmitter.emit('dock-window-move', data);
           });
 
@@ -56,7 +56,7 @@
           /* outbound bus stuff ************************************************************
           *********************************************************************************/
           dockEmitter.on('snap-to', function(data) {
-            console.log('this is the snap-to data', data);
+            //console.log('this is the snap-to data', data);
 
             fin.desktop.InterApplicationBus.send(data.app_uuid, "dock-to", {
               topic: "dock-to",
@@ -65,7 +65,7 @@
           });
 
           dockEmitter.on('dock-to', function(data) {
-            console.log('this is the dock-to data', data);
+            //console.log('this is the dock-to data', data);
 
             fin.desktop.InterApplicationBus.send(data.app_uuid, "dock" + ':' + data.docker, {
               bounds: data.points,
@@ -76,7 +76,7 @@
           });
 
           dockEmitter.on('dock-no-candidate', function(data) {
-            console.log('this is the dock-no-candidate data', data);
+            //console.log('this is the dock-no-candidate data', data);
 
             fin.desktop.InterApplicationBus.send(data.app_uuid, "dock-no-candidate" + ':' + data.docker, {
 
@@ -174,13 +174,13 @@ exports.apiInterface = apiInterface;
 
 
             apiInterface.init();
-            console.log('this is the api-interface', apiInterface);
+            //console.log('this is the api-interface', apiInterface);
 
 
-            console.log('this is the utils stuff', dockUtils);
+            //console.log('this is the utils stuff', dockUtils);
 
             dockEmitter.addListener('dock-subscribe', function(data) {
-              console.log('locationManager dock-subscribe', data);
+              //console.log('locationManager dock-subscribe', data);
 
               var newWindow = {
 
@@ -199,7 +199,7 @@ exports.apiInterface = apiInterface;
 
 
             dockEmitter.on('dock-unsubscribe', function(data) {
-              console.log(data);
+              //console.log(data);
             });
 
 
@@ -229,17 +229,20 @@ exports.apiInterface = apiInterface;
 
 
             dockEmitter.on('dock-undocked', function(data) {
-              console.warn(' UNdocked', data, windowLocations);
+              //console.warn(' UNdocked', data, windowLocations);
 
               // this is an error when not the window that initted the docking?
-              windowLocations[data.name].docked = false;
-              windowLocations[data.target].docked = false;
-              //console.warn(windowLocations);
+              // for now, when someone undocks, just break all the windows apart
+              // windowLocations[data.name].docked = false;
+              // windowLocations[data.target].docked = false;
+              for (var wnd in windowLocations){
+                windowLocations[wnd].docked = false;
+              }
             });
 
 
             dockEmitter.on('dock-docked', function(data) {
-              console.warn('this is the call once something docked', data);
+              //console.warn('this is the call once something docked', data);
               windowLocations[data.name].docked = true;
               windowLocations[data.target].docked = true;
             });
@@ -295,18 +298,18 @@ function getCorners(top, left, width, height, thresh) {
           return;
         }
 
-        console.log('hasContactedEvent called', name, uuid, square, searchMap);
+        //console.log('hasContactedEvent called', name, uuid, square, searchMap);
 
 
         for (var i = 0, mapLength = searchMap.length; i < mapLength; i++) {
           _.each(square, function(point) {
 
-            console.log('this is the result of the point in square', pointInSquare(point, searchMap[i].location));
+            //console.log('this is the result of the point in square', pointInSquare(point, searchMap[i].location));
 
             contactedSquare = pointInSquare(point, searchMap[i].location);
 
             if (pointInSquare(point, searchMap[i].location)) {
-              console.log('Ive been hit!!!');
+              //console.log('Ive been hit!!!');
               dockEmitter.emit('dock-to', {
                 points: searchMap[i].bounds,
                 app_uuid: uuid,

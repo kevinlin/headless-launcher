@@ -1,4 +1,4 @@
-/*global fin*/
+/*global fin, d3*/
 
 'use strict';
 
@@ -10,17 +10,33 @@
  * Controller of the demoChartApp
  */
 angular.module('demoChartApp')
-  .controller('MainCtrl', function ($scope, interappMessaging, dockingAdapter) {
+  .controller('MainCtrl', function ($scope, interappMessaging, dockingAdapter, charting) {
 
+    // kicks off the docking adapter
     dockingAdapter.init(fin.desktop.Window.getCurrent(), fin, document);
+
+    // if you want to make a frameless window, use the following to move it around
+    // var mainWindow = fin.desktop.Window.getCurrent(),
+    //     toolbar = document.getElementById('toolbar');
+
+    // //call defineDraggableArea method with the toolbar.
+    // mainWindow.defineDraggableArea(toolbar);
+
+
 
     var subscribeToUuid = 'headless-launcher',
         topic = 'demo',
-        secretTopic = 'chart-demo:secret';
+        secretTopic = 'chart-demo:secret',
+        chartSVG = d3.select('#equity-chart svg');
+
+    //paint the chart initially
+    charting.paintChart(chartSVG);
 
     $scope.model = {
       publicMessages: '',
-      privateMessages: ''
+      privateMessages: '',
+      name: 'Apple',
+      price: 500.45
     };
 
     interappMessaging
@@ -35,12 +51,16 @@ angular.module('demoChartApp')
         if (!$scope.$$phase) {
           $scope.$apply();
         }
+      })
+      .subscribe('*', 'currentCompany', function(msg){
+        $scope.model.name = msg.name;
+        $scope.model.price = msg.price;
+        charting.paintChart(chartSVG);
+        if (!$scope.$$phase) {
+          $scope.$apply();
+        }
       });
 
-    var mainWindow = fin.desktop.Window.getCurrent(),
-        toolbar = document.getElementById('toolbar');
 
-    //call defineDraggableArea method with the toolbar.
-    mainWindow.defineDraggableArea(toolbar);
 
   });

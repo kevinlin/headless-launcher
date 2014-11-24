@@ -25,7 +25,7 @@ angular.module('dockingAdapter', [])
             };
 
             me.init = function(mainWindow, fin, document) {
-                console.warn(mainWindow, fin, document);
+                //console.warn(mainWindow, fin, document);
                 me.managedState.mainWindow = mainWindow;
 
                 me.managedState.mainWindow.getBounds(function(bounds) {
@@ -90,7 +90,7 @@ angular.module('dockingAdapter', [])
                 undock.addEventListener('click', undockWindow);
 
                 function undockWindow() {
-                    console.warn('undock?!');
+                    //console.warn('undock?!');
                     me.managedState.mainWindow.leaveGroup(function() {
 
                         var targetRoot = me.managedState.dockingTarget.dockee,
@@ -115,10 +115,10 @@ angular.module('dockingAdapter', [])
                 }
 
                 function mouseUpOnDraggable() {
-                    console.warn('mouse up on draggable');
-
+                    //console.warn('mouse up on draggable: can dock', me.managedState.canDock , ' !is docked: ', !me.managedState.isDocked);
                     if (me.managedState.canDock && !me.managedState.isDocked) {
-                        console.warn('the mouse has been upped', me.managedState.dockingTarget);
+
+                        //console.warn('the mouse has been upped', me.managedState.dockingTarget);
 
                         me.managedState.currentlyDocking = true;
                         var destination = {
@@ -142,16 +142,14 @@ angular.module('dockingAdapter', [])
 
                                         if (topGood && leftGood) {
 
-
-
-                                            console.warn('this is the DockingTarget in the callback:', me.managedState.dockingTarget);
+                                            //console.warn('this is the DockingTarget in the callback:', me.managedState.dockingTarget);
                                             var dockingWindow = fin.desktop.Window.wrap(me.managedState.dockingTarget.dockee.app_uuid, me.managedState.dockingTarget.dockee.name);
 
                                             //debugger
 
                                             me.managedState.mainWindow.joinGroup(dockingWindow, function() {
 
-                                                    console.warn('this is the DockingTarget in the JOIN callback:', dockingWindow, me.managedState);
+                                                    //console.warn('this is the DockingTarget in the JOIN callback:', dockingWindow, me.managedState);
 
                                                     //dock.style.visibility = 'hidden';
                                                     undock.style.visibility = 'visible';
@@ -170,7 +168,7 @@ angular.module('dockingAdapter', [])
                                                     //     opacity: 1
                                                     // });
 
-                                                    console.warn('it grouped just fine');
+                                                    //console.warn('it grouped just fine');
                                                 },
                                                 function(reason) {
                                                     console.warn('it did not group', reason);
@@ -205,7 +203,7 @@ angular.module('dockingAdapter', [])
                 });
 
                 fin.desktop.InterApplicationBus.subscribe('*', 'dock-undocked', function(data) {
-
+                  //console.warn('should have undocked');
                   me.managedState.isDocked = false;
                   me.managedState.canDock = true;
 
@@ -217,8 +215,8 @@ angular.module('dockingAdapter', [])
                 fin.desktop.InterApplicationBus.subscribe(dockingServerUuid, "dock:" + me.managedState.mainWindow.name, function(data) {
 
 
-
-                    if (!me.managedState.currentlyDocking && !me.managedState.isDocked) {
+                    //!me.managedState.currentlyDocking &&
+                    if ( !me.managedState.isDocked) {
 
                         //var isDockShowing = dock.style.display === 'block';
 
@@ -228,7 +226,7 @@ angular.module('dockingAdapter', [])
 
                         me.managedState.dockingTarget = data;
                         me.managedState.canDock = true;
-                        console.log('Ive been told to dock!', data);
+                        //console.log('Ive been told to dock!', data);
                     }
 
 
@@ -240,7 +238,7 @@ angular.module('dockingAdapter', [])
                         //dock.style.visibility = 'hidden';
                         //me.managedState.dockingTarget = false;
                         me.managedState.canDock = false;
-                        console.warn('all alone... cant dock', data);
+                        //console.warn('all alone... cant dock', data);
                     }
 
                 }); //end subscribe

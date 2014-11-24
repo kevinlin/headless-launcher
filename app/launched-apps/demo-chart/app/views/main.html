@@ -1,12 +1,22 @@
-<div class="row marketing">
-  <h4>Public Messages From Headless App</h4>
-  <p>
-    {{model.publicMessages}}
-  </p>
+<div class="row ">
+  <div class="col-xs-12">
+    <h4>Public Messages From Headless App</h4>
+    <p>
+      {{model.publicMessages}}
+    </p>
 
-  <h4>Private Messages From Headless App</h4>
-  <p>
-    {{model.privateMessages}}
-  </p>
+    <h4>Private Messages From Headless App</h4>
+    <p>
+      {{model.privateMessages}}
+    </p>
+  </div>
+
+</div>
+
+<div>
+  <h2>{{model.name}} <span class="muted">{{model.price}}</span></h2>
+  <div id="equity-chart">
+    <svg></svg>
+  </div>
 </div>
 

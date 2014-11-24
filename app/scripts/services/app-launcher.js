@@ -13,7 +13,7 @@ angular.module('headlessDockerApp')
   .service('appLauncher', function appLauncher() {
     var appsLaunched = false,
       defaultApps = [{
-      url: 'http://local:9000/launched-apps/demo-app/dist/index.html',
+      url: 'launched-apps/demo-app/dist/index.html',
       uuid: 'demo-app',
       applicationIcon: '',
       name: 'demo-app',
@@ -26,7 +26,7 @@ angular.module('headlessDockerApp')
       autoShow: true,
       maximizable: false
     },{
-      url: 'http://local:9000/launched-apps/demo-chart/dist/index.html',
+      url: 'launched-apps/demo-chart/dist/index.html',
       uuid: 'demo-chart',
       applicationIcon: '',
       name: 'demo-chart',
@@ -37,7 +37,7 @@ angular.module('headlessDockerApp')
       defaultTop: 300,
       defaultLeft: 300,
       autoShow: true,
-      frame: false,
+      frame: true,
       maximizable: false
     }];
 
