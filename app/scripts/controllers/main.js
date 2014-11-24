@@ -10,6 +10,8 @@
 angular.module('headlessDockerApp')
   .controller('MainCtrl', function ($scope, appLauncher, interappMessaging, dockingServer) {
 
+    console.log(dockingServer);
+
     var phrases = [
         'I love HTML5',
         'JavaScript is cool!',
@@ -31,8 +33,8 @@ angular.module('headlessDockerApp')
 
     var updateIntervalId = setInterval(function(){
       interappMessaging.publish(topic, randomPhrase());
-      interappMessaging.send('demo-app', 'demo:secret', 'demo-app: '+randomPhrase() + ' ' + randTo(10) );
-      interappMessaging.send('demo-chart', 'demo:secret', 'demo-chart: '+randomPhrase() + ' ' + randTo(10));
+      interappMessaging.publish( 'chart-demo:secret', 'demo-chart: '+randomPhrase() + ' ' + randTo(10) );
+      interappMessaging.publish('app-demo:secret', 'demo-app: '+randomPhrase() + ' ' + randTo(10));
     }, 3000);
 
     $scope.$on('$destroy',function(){

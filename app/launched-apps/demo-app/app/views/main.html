@@ -10,3 +10,35 @@
     {{model.privateMessages}}
   </p>
 </div>
+
+<div class="row">
+  <div class="col-xs-6">
+    <h2>Tech</h2>
+    <ul class="list-group">
+      <a
+        ng-repeat="company in model.tech"
+        ng-class="{active: model.activeSymbol==company.symbol}"
+        ng-click="setOnClick(company)"
+        class="list-group-item">
+        {{company.name}} {{company.symbol}}
+        <span class="badge">{{company.price}}</span>
+      </a>
+    </ul>
+  </div>
+
+  <div class="col-xs-6">
+    <h2>Finance</h2>
+    <ul class="list-group">
+      <a
+        ng-repeat="company in model.finance"
+        ng-class="{active: model.activeSymbol==company.symbol}"
+        ng-click="setOnClick(company)"
+        class="list-group-item">
+        {{company.name}}
+        <span class="badge">{{company.price}}</span>
+      </a>
+
+    </ul>
+  </div>
+</div>
+

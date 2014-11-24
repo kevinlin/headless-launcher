@@ -22,19 +22,24 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div class="header">
+      <div id="toolbar" class="header">
         <ul class="nav nav-pills pull-right">
           <li>
             <button class="btn btn-default undock">
               <span class="glyphicon glyphicon-resize-full"></span>
             </button>
           </li>
-          <li>
+<!--           <li>
             <button class="btn btn-default dock">
               <span class="glyphicon glyphicon-resize-small"></span>
             </button>
-          </li>
+          </li> -->
         </ul>
+        <ul class="nav nav-pills pull-right">
+          <li ><a ng-href="#">Messages</a></li>
+          <li><a ng-href="#/about">Chart</a></li>
+        </ul>
+
         <h3 class="text-muted">demoChart</h3>
       </div>
 
@@ -79,11 +84,14 @@
     <script src="../../../modules/interapp-messaging/interapp-messaging.js"></script>
 
     <script src="../../../modules/docking-adapter/docking-adapter.js"></script>
+    <script src="../bower_components/d3/d3.js"></script>
+    <script src="../bower_components/nvd3/nv.d3.js"></script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/services/demo-data.js"></script>
         <!-- endbuild -->
 </body>
 </html>

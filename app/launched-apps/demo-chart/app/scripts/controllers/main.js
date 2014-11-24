@@ -16,7 +16,7 @@ angular.module('demoChartApp')
 
     var subscribeToUuid = 'headless-launcher',
         topic = 'demo',
-        secretTopic = 'demo:secret';
+        secretTopic = 'chart-demo:secret';
 
     $scope.model = {
       publicMessages: '',
@@ -36,5 +36,11 @@ angular.module('demoChartApp')
           $scope.$apply();
         }
       });
+
+    var mainWindow = fin.desktop.Window.getCurrent(),
+        toolbar = document.getElementById('toolbar');
+
+    //call defineDraggableArea method with the toolbar.
+    mainWindow.defineDraggableArea(toolbar);
 
   });

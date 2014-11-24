@@ -17,25 +17,28 @@ angular.module('headlessDockerApp')
       uuid: 'demo-app',
       applicationIcon: '',
       name: 'demo-app',
-      mainWindowOptions: {
-        defaultHeight: 600,
-        defaultWidth: 800,
-        defaultTop: 300,
-        defaultLeft: 300,
-        autoShow: true
-      }
+      defaultHeight: 600,
+      defaultWidth: 500,
+      maxHeight: 600,
+      maxWidth: 500,
+      defaultTop: 300,
+      defaultLeft: 300,
+      autoShow: true,
+      maximizable: false
     },{
       url: 'http://local:9000/launched-apps/demo-chart/dist/index.html',
       uuid: 'demo-chart',
       applicationIcon: '',
       name: 'demo-chart',
-      mainWindowOptions: {
-        defaultHeight: 600,
-        defaultWidth: 800,
-        defaultTop: 300,
-        defaultLeft: 300,
-        autoShow: true
-      }
+      defaultHeight: 500,
+      defaultWidth: 500,
+      maxHeight: 500,
+      maxWidth: 500,
+      defaultTop: 300,
+      defaultLeft: 300,
+      autoShow: true,
+      frame: false,
+      maximizable: false
     }];
 
     var launchDefaultApps = function(){
@@ -44,10 +47,10 @@ angular.module('headlessDockerApp')
         return;
       }
       defaultApps.forEach(function(appConfig){
-        var app = new fin.desktop.Application(appConfig,
+        new fin.desktop.Window(appConfig,
           function () {
-            console.log('Application successfully created');
-            app.run();
+            console.log('Child Window successfully created');
+            //app.run();
           },
           function () {
             console.log('Error creating application');

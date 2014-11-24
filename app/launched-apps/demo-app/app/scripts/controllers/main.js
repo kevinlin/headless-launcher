@@ -16,11 +16,52 @@ angular.module('demoAppApp')
 
     var subscribeToUuid = 'headless-launcher',
         topic = 'demo',
-        secretTopic = 'demo:secret';
+        secretTopic = 'app-demo:secret';
 
     $scope.model = {
       publicMessages: '',
-      privateMessages: ''
+      privateMessages: '',
+      activeSymbol : 'APPL',
+      tech: [{
+        name: 'Apple',
+        symbol: 'APPL',
+        price: 500.45
+      },{
+        name: 'Google',
+        symbol: 'GOOG',
+        price: 400.45
+      },{
+        name: 'Facebook',
+        symbol: 'FB',
+        price: 100.45
+      },{
+        name: 'IBM',
+        symbol: 'IBM',
+        price: 40.45
+      }],
+      finance: [{
+        name: 'Citi',
+        symbol: 'C',
+        price: 500.45
+      },{
+        name: 'Bank Of America',
+        symbol: 'BOA',
+        price: 400.45
+      },{
+        name: 'JP Morgan',
+        symbol: 'JPM',
+        price: 100.45
+      },{
+        name: 'Tullet Prebon',
+        symbol: 'TP',
+        price: 400.45
+      }]
+    };
+
+    $scope.setOnClick = function(company){
+      $scope.model.activeSymbol = company.symbol;
+      interappMessaging
+        .publish('currentCompany', company);
     };
 
     interappMessaging
@@ -36,5 +77,7 @@ angular.module('demoAppApp')
           $scope.$apply();
         }
       });
+
+
 
   });

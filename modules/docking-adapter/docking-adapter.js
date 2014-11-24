@@ -42,7 +42,7 @@ angular.module('dockingAdapter', [])
                     });
 
                 me.managedState.mainWindow.addEventListener('bounds-changing', function(data) {
-                    console.log('on the move ', data);
+                    //console.log('on the move ', data);
 
                     me.managedState.mainWindow.getBounds(function(bounds) {
 
@@ -87,22 +87,25 @@ angular.module('dockingAdapter', [])
 
                 //WindowFactory.create({name:"asdfasdfa",url:"views/cpu.html",autoShow:true});
 
-                //undock.addEventListener('click', undockWindow);
+                undock.addEventListener('click', undockWindow);
 
                 function undockWindow() {
                     console.warn('undock?!');
                     me.managedState.mainWindow.leaveGroup(function() {
 
+                        var targetRoot = me.managedState.dockingTarget.dockee,
+                            target = targetRoot && targetRoot.name;
+
                         fin.desktop.InterApplicationBus.publish("dock-undocked", {
-                            target: me.managedState.dockingTarget.dockee.name,
+                            target: target,
                             name: me.managedState.mainWindow.name
                         });
 
                         me.managedState.isDocked = false;
                         me.managedState.canDock = true;
 
-                        //dock.style.display = 'block';
-                        undock.style.display = 'none';
+                        //dock.style.visibility = 'visible';
+                        undock.style.visibility = 'hidden';
 
 
                     }, function(err) {
@@ -150,8 +153,8 @@ angular.module('dockingAdapter', [])
 
                                                     console.warn('this is the DockingTarget in the JOIN callback:', dockingWindow, me.managedState);
 
-                                                    dock.style.display = 'none';
-                                                    undock.style.display = 'block';
+                                                    //dock.style.visibility = 'hidden';
+                                                    undock.style.visibility = 'visible';
 
                                                     fin.desktop.InterApplicationBus.publish("dock-docked", {
                                                         target: me.managedState.dockingTarget.dockee.name,
@@ -191,17 +194,37 @@ angular.module('dockingAdapter', [])
                 }
 
 
+                fin.desktop.InterApplicationBus.subscribe('*', 'dock-docked', function(data) {
+
+                  me.managedState.currentlyDocking = false;
+                  me.managedState.isDocked = true;
+                  me.managedState.canDock = false;
+
+                  undock.style.visibility = 'visible';
+
+                });
+
+                fin.desktop.InterApplicationBus.subscribe('*', 'dock-undocked', function(data) {
+
+                  me.managedState.isDocked = false;
+                  me.managedState.canDock = true;
+
+                  //dock.style.visibility = 'visible';
+                  undock.style.visibility = 'hidden';
+
+                });
+
                 fin.desktop.InterApplicationBus.subscribe(dockingServerUuid, "dock:" + me.managedState.mainWindow.name, function(data) {
 
 
 
                     if (!me.managedState.currentlyDocking && !me.managedState.isDocked) {
 
-                        var isDockShowing = dock.style.display === 'block';
+                        //var isDockShowing = dock.style.display === 'block';
 
-                        if (!isDockShowing) {
-                            dock.style.display = 'block';
-                        }
+                        // if (!isDockShowing) {
+                        //     //dock.style.visibility = 'visible';
+                        // }
 
                         me.managedState.dockingTarget = data;
                         me.managedState.canDock = true;
@@ -214,7 +237,7 @@ angular.module('dockingAdapter', [])
                 fin.desktop.InterApplicationBus.subscribe(dockingServerUuid, "dock-no-candidate:" + me.managedState.mainWindow.name, function(data) {
 
                     if (!me.managedState.currentlyDocking && !me.managedState.isDocked) {
-                        dock.style.display = 'none';
+                        //dock.style.visibility = 'hidden';
                         //me.managedState.dockingTarget = false;
                         me.managedState.canDock = false;
                         console.warn('all alone... cant dock', data);

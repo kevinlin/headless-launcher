@@ -88,3 +88,9 @@ body {
     border-bottom: 0;
   }
 }
+
+
+/*initially hide the docking buttons*/
+.dock, .undock {
+  visibility: hidden;
+}

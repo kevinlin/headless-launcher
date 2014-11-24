@@ -230,6 +230,8 @@ exports.apiInterface = apiInterface;
 
             dockEmitter.on('dock-undocked', function(data) {
               console.warn(' UNdocked', data, windowLocations);
+
+              // this is an error when not the window that initted the docking?
               windowLocations[data.name].docked = false;
               windowLocations[data.target].docked = false;
               //console.warn(windowLocations);
