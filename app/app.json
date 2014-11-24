@@ -2,7 +2,7 @@
     "devtools_port": 9090,
     "startup_app": {
         "name": "headless-launcher",
-        "url": "http://local:9000",
+        "url": "https://demoappdirectory.openf.in/desktop/deploy/headless-launcher/#/",
         "uuid": "headless-launcher",
         "applicationIcon": "http://localhost:5000/favicon.ico",
         "autoShow": true,
