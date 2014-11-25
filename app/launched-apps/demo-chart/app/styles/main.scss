@@ -12,6 +12,7 @@
 body {
   padding-top: 20px;
   padding-bottom: 20px;
+  overflow: hidden;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -93,3 +94,19 @@ body {
 .dock, .undock {
   visibility: hidden;
 }
+
+.msg-in{
+  padding-left: 15px;
+  min-height: 20px;
+}
+
+.msg-in.private {
+  font-weight: bold;
+  color: #428bca;
+}
+
+#equity-chart {
+  height: 165px;
+}
+
+

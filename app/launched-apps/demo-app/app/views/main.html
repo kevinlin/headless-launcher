@@ -1,13 +1,12 @@
-
-<div class="row">
+<div class="row ">
   <div class="col-xs-12">
     <h4>Public Messages From Headless App</h4>
-    <p>
+    <p class="msg-in public">
       {{model.publicMessages}}
     </p>
 
     <h4>Private Messages From Headless App</h4>
-    <p>
+    <p class="msg-in private">
       {{model.privateMessages}}
     </p>
   </div>
@@ -22,7 +21,7 @@
         ng-class="{active: model.activeSymbol==company.symbol}"
         ng-click="setOnClick(company)"
         class="list-group-item">
-        {{company.name}} {{company.symbol}}
+        {{company.name}}
         <span class="badge">{{company.price}}</span>
       </a>
     </ul>

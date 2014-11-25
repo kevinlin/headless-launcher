@@ -2,7 +2,8 @@
     "devtools_port": 9090,
     "startup_app": {
         "name": "headless-launcher",
-        "url": "https://demoappdirectory.openf.in/desktop/deploy/headless-launcher/#/",
+        "url": "http://local:9000",
+        "__url": "https://demoappdirectory.openf.in/desktop/deploy/headless-launcher/#/",
         "uuid": "headless-launcher",
         "applicationIcon": "http://localhost:5000/favicon.ico",
         "autoShow": true,
@@ -19,6 +20,6 @@
         "company": "OpenFin",
         "description": "shared context app launcher ",
         "icon": "http://localhost:5000/favicon.ico",
-        "name": "app-launcher"
+        "name": "Headless Launcher"
     }
 }

@@ -32,28 +32,44 @@ angular.module('demoChartApp')
       }];
     };
 
+    // var dataBySymbol = function(symbol){
+    //   return demoData.filter(function(company){
+    //     return company.Elements[0].Symbol === symbol;
+    //   });
+    // };
+
     var dataBySymbol = function(symbol){
-      return demoData.filter(function(company){
+      var rawData = demoData.filter(function(company){
         return company.Elements[0].Symbol === symbol;
+      })[0];
+
+      return rawData.Dates.map(function(el, i){
+        return {
+          label: el,
+          value: rawData.Elements[0].DataSeries.close.values[i]
+        };
       });
     };
 
-    var paintChart = function(chart){
-      console.log('this is the data by symbol ', dataBySymbol('FB'));
+    var paintChart = function(chart, companySymbol){
+      console.log('this is the data by symbol ', dataBySymbol('FB'), 'and the prepped data', exampleData()[0].values);
 
       //element.innerHTML = '';
 
-      d3.select(chart);
+      chart.selectAll('g').remove();
 
       var width = 440,
-          height = 100,
-          data = exampleData()[0].values,
+          height = 165,
+          // data = exampleData()[0].values,
+          data = dataBySymbol(companySymbol),
           y = d3.scale.linear()
             .range([0, height])
             .domain([0, d3.max(data, function(d){
               return d.value;
             })]),
           barWidth = width / data.length;
+
+      console.log('this is the first one ', data[0]);
 
       chart
         .attr('width', width)
@@ -64,17 +80,18 @@ angular.module('demoChartApp')
         .enter().append('g')
         .attr('transform', function(d, i) {
             return 'translate(' + i * barWidth + ',0)';
-        });
+        })
+        .attr('data-legend','whatever ');
 
       bar.append('rect')
         .attr('y', function(d) {
-            return y(d.value);
+            return y(d.value) / 1.2;
         })
         .attr('height', function(d) {
-            return height - y(d.value);
+            return height - y(d.value) * .25;
         })
         .attr('width', barWidth )
-        .attr('fill', 'steelblue');
+        .attr('fill', '#428bca');
     };
 
     return {

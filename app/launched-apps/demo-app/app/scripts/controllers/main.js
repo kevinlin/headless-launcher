@@ -21,14 +21,14 @@ angular.module('demoAppApp')
     $scope.model = {
       publicMessages: '',
       privateMessages: '',
-      activeSymbol : 'APPL',
+      activeSymbol : 'AAPL',
       tech: [{
         name: 'Apple',
-        symbol: 'APPL',
+        symbol: 'AAPL',
         price: 500.45
       },{
         name: 'Google',
-        symbol: 'GOOG',
+        symbol: 'GOOGL',
         price: 400.45
       },{
         name: 'Facebook',
@@ -45,15 +45,15 @@ angular.module('demoAppApp')
         price: 500.45
       },{
         name: 'Bank Of America',
-        symbol: 'BOA',
+        symbol: 'BAC',
         price: 400.45
       },{
         name: 'JP Morgan',
         symbol: 'JPM',
         price: 100.45
       },{
-        name: 'Tullet Prebon',
-        symbol: 'TP',
+        name: 'AIG',
+        symbol: 'AIG',
         price: 400.45
       }]
     };

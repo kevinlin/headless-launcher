@@ -30,7 +30,7 @@ angular.module('demoChartApp')
         chartSVG = d3.select('#equity-chart svg');
 
     //paint the chart initially
-    charting.paintChart(chartSVG);
+    charting.paintChart(chartSVG, 'AAPL');
 
     $scope.model = {
       publicMessages: '',
@@ -55,7 +55,7 @@ angular.module('demoChartApp')
       .subscribe('*', 'currentCompany', function(msg){
         $scope.model.name = msg.name;
         $scope.model.price = msg.price;
-        charting.paintChart(chartSVG);
+        charting.paintChart(chartSVG, msg.symbol);
         if (!$scope.$$phase) {
           $scope.$apply();
         }

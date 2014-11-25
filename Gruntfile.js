@@ -1,8 +1,8 @@
 // Generated on 2014-11-20 using generator-angular 0.9.8
 'use strict';
 
-var sys = require('sys'),
-    exec = require('child_process').exec;
+// var sys = require('sys'),
+//     exec = require('child_process').exec;
 
 // # Globbing
 // for performance reasons we're only matching one level down:

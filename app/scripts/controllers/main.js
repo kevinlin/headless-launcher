@@ -12,29 +12,38 @@ angular.module('headlessDockerApp')
 
     console.log(dockingServer);
 
-    var phrases = [
-        'I love HTML5',
-        'JavaScript is cool!',
-        'Tacos are best served hot!',
-        'CSS3 is great!',
-        'Dinosaurs ate all my tacos?'
-        ],
+    var phrases = {
+          public: [
+            'I was written in agular',
+            'I\'m a single page web app',
+            'Theses apps were scaffolded with yeoman'
+            ],
+          app: [
+          'This was went via the inter app bus ',
+          'The OpenFin JS adapter is not lazy loaded',
+          'Windows are grouped with a call to joinGroup()'],
+          chart: [
+          'The chart shown here is done in d3.js',
+          'The icons are from font awesome',
+          'The chart is an svg element'
+          ]
+        },
         //return a random number between 0 and 10^exponent
         randTo = function(exponent){
           exponent = exponent || 1;
           return (Math.round(Math.random() * Math.pow(10, exponent)));
         },
-        randomPhrase = function(){
-          return phrases[randTo(1) % phrases.length];
+        randomPhrase = function(arr){
+          return arr[randTo(1) % arr.length];
         },
         topic = 'demo';
 
     appLauncher.launchDefaultApps();
 
     var updateIntervalId = setInterval(function(){
-      interappMessaging.publish(topic, randomPhrase());
-      interappMessaging.publish( 'chart-demo:secret', 'demo-chart: '+randomPhrase() + ' ' + randTo(10) );
-      interappMessaging.publish('app-demo:secret', 'demo-app: '+randomPhrase() + ' ' + randTo(10));
+      interappMessaging.publish(topic, randomPhrase(phrases.public));
+      interappMessaging.publish( 'chart-demo:secret', 'demo-chart: '+randomPhrase(phrases.chart));
+      interappMessaging.publish('app-demo:secret', 'demo-app: '+randomPhrase(phrases.app));
     }, 3000);
 
     $scope.$on('$destroy',function(){
