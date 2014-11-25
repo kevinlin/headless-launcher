@@ -425,6 +425,20 @@ module.exports = function (grunt) {
           'cd ../../;',
           'grunt build'
         ].join(' ')
+      },
+      buildSub: {
+        command: [
+          'npm install;',
+          'bower install;',
+          'cd app/launched-apps/demo-chart;',
+          'npm install;',
+          'bower install;',
+          'grunt build;',
+          'cd ../demo-app; npm install;',
+          'npm install;',
+          'bower install;',
+          'grunt build;'
+        ].join(' ')
       }
     }
   });
@@ -469,7 +483,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'shell',
+    'shell:buildSub',
     'clean:dist',
     'wiredep',
     'useminPrepare',
