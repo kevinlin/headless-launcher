@@ -19,7 +19,7 @@ angular.module('headlessDockerApp')
             'Theses apps were scaffolded with yeoman'
             ],
           app: [
-          'This was went via the inter app bus ',
+          'This was sent via the inter app bus ',
           'The OpenFin JS adapter is not lazy loaded',
           'Windows are grouped with a call to joinGroup()'],
           chart: [
@@ -38,6 +38,7 @@ angular.module('headlessDockerApp')
         },
         topic = 'demo';
 
+    // kick off the app launcher
     appLauncher.launchDefaultApps();
 
     var updateIntervalId = setInterval(function(){

@@ -419,6 +419,7 @@ module.exports = function (grunt) {
           'bower install;',
           'grunt build;',
           'cd ../demo-app; npm install;',
+          'npm install;',
           'bower install;',
           'grunt build;',
           'cd ../../;',
@@ -468,7 +469,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'buidSubProjects',
+    'shell',
     'clean:dist',
     'wiredep',
     'useminPrepare',

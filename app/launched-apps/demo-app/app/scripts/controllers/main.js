@@ -82,8 +82,4 @@ angular.module('demoAppApp')
       subscriptions.hasSubscribed = true;
     }
 
-
-
-
-
   });

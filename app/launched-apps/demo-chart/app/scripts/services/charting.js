@@ -12,32 +12,6 @@ angular.module('demoChartApp')
   .service('charting', function charting(demoData) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
-    var dataToggle = 0;
-
-    var exampleData = function() {
-      dataToggle =  ++dataToggle % 2;
-
-      console.log('this is the toggle value', dataToggle,demoData[dataToggle] );
-
-      return [{
-        key: 'sure',
-        values: demoData[dataToggle]
-          .Dates
-          .map(function(el, i){
-            return {
-              label: el,
-              value: demoData[dataToggle].Elements[0].DataSeries.close.values[i]
-            };
-          })
-      }];
-    };
-
-    // var dataBySymbol = function(symbol){
-    //   return demoData.filter(function(company){
-    //     return company.Elements[0].Symbol === symbol;
-    //   });
-    // };
-
     var dataBySymbol = function(symbol){
       var rawData = demoData.filter(function(company){
         return company.Elements[0].Symbol === symbol;
@@ -52,15 +26,13 @@ angular.module('demoChartApp')
     };
 
     var paintChart = function(chart, companySymbol){
-      console.log('this is the data by symbol ', dataBySymbol('FB'), 'and the prepped data', exampleData()[0].values);
 
-      //element.innerHTML = '';
-
+      // clear out any previous paintings
       chart.selectAll('g').remove();
 
-      var width = 440,
+      var bar,
+          width = 440,
           height = 165,
-          // data = exampleData()[0].values,
           data = dataBySymbol(companySymbol),
           y = d3.scale.linear()
             .range([0, height])
@@ -69,13 +41,11 @@ angular.module('demoChartApp')
             })]),
           barWidth = width / data.length;
 
-      console.log('this is the first one ', data[0]);
-
       chart
         .attr('width', width)
         .attr('height', height);
 
-      var bar = chart.selectAll('g')
+      bar = chart.selectAll('g')
         .data(data)
         .enter().append('g')
         .attr('transform', function(d, i) {
