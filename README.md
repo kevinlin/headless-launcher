@@ -18,7 +18,7 @@ To run locally (**requires node and npm to build**)
 
 2. Install dependences and build (run in created project directory)
     * `npm install`
-    * `grunt shell` (will take a bit, it installs all the sub dev tools and builds project)
+    * `grunt initProject` (will take a bit, it installs all the subproject dev tools and builds project)
 
 3. Host locally
     * ensure that the `url` key in `app/app.json` is pointing to the local `app/index.html` file (http://local:9000)

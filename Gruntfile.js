@@ -444,13 +444,9 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('buidSubProjects', 'call grunt build for the sub projects', function(){
-    exec('cd app/launched-apps/demo-chart; npm install; bower install;  grunt build; cd ../demo-app; npm install; bower install;  grunt build;',
-      function(error, stdout){
-        //sys.puts(stdout);
-        console.log(stdout);
-    });
-  });
+  grunt.registerTask('initProject', [
+    'shell:initProject'
+  ]);
 
 
 
