@@ -3,7 +3,7 @@
     "startup_app": {
         "name": "headless-launcher",
         "__url": "http://localhost:9000",
-        "url": "http://headless-launcher/#/",
+        "url": "http://localhost:9000/index.html",
         "uuid": "headless-launcher",
         "applicationIcon": "http://localhost:5000/favicon.ico",
         "autoShow": true,
