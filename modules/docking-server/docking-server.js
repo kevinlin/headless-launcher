@@ -285,55 +285,61 @@ function getCorners(top, left, width, height, thresh) {
         return (inRange && inDomain) ? square : false;
       }
 
+      function inRangeFromRight(docker, dockee, hRange, vRange) {
+        var inHRange = dockee.B.x - hRange <= docker.A.x && docker.A.x <= dockee.B.x + hRange;
+        var inVRange = dockee.B.y - vRange <= docker.A.y && docker.A.y <= dockee.B.y + vRange;
+
+        return (inHRange && inVRange) ? dockee : false;
+      }
 
       function hasContactedEventHorizon(name, uuid, square) {
 
         var contactedSquare,
-        searchMap = _.reject(windowLocations, function(theWindow) {
-          return theWindow.name === name;
-        }),
-        hasDockingCandidate = false;
+            canSnapFromRight,
+            canSnapFromLeft,
+            searchMap = _.reject(windowLocations, function(theWindow) {
+              return theWindow.name === name;
+            }),
+            hasDockingCandidate = false;
 
         if (!searchMap) {
           return;
         }
 
-        //console.log('hasContactedEvent called', name, uuid, square, searchMap);
+        console.log('hasContactedEvent called', name, uuid, square, searchMap);
 
 
         for (var i = 0, mapLength = searchMap.length; i < mapLength; i++) {
-          _.each(square, function(point) {
+            //_.each(square, function(point) {
 
             //console.log('this is the result of the point in square', pointInSquare(point, searchMap[i].location));
 
-            contactedSquare = pointInSquare(point, searchMap[i].location);
+            //contactedSquare = pointInSquare(point, searchMap[i].location);
+            canSnapFromRight = inRangeFromRight(square, searchMap[i].location, 110, 70);
 
-            if (pointInSquare(point, searchMap[i].location)) {
-              //console.log('Ive been hit!!!');
-              dockEmitter.emit('dock-to', {
-                points: searchMap[i].bounds,
-                app_uuid: uuid,
-                docker: name,
-                dockee: {
-                  name: searchMap[i].name,
-                  app_uuid: searchMap[i].app_uuid
-                }
-              });
-
-                      //searchMap[i].docked = true;
-                      //windowLocations[name].docked = true;
-                      hasDockingCandidate = true;
-
+            if (canSnapFromRight) {
+                console.log('Can snap to right!!!');
+                dockEmitter.emit('dock-to', {
+                    points: searchMap[i].bounds,
+                    app_uuid: uuid,
+                    docker: name,
+                    dockee: {
+                        name: searchMap[i].name,
+                        app_uuid: searchMap[i].app_uuid
                     }
-                  });
-          if (!hasDockingCandidate) {
-            dockEmitter.emit('dock-no-candidate', {
+                });
 
-              app_uuid: uuid,
-              docker: name,
-
-            });
-          }
+                //searchMap[i].docked = true;
+                //windowLocations[name].docked = true;
+                hasDockingCandidate = true;
+            }
+            //});
+            if (!hasDockingCandidate) {
+                dockEmitter.emit('dock-no-candidate', {
+                    app_uuid: uuid,
+                    docker: name,
+                });
+            }
         }
 
       } //end hasContactedEventHorizon

@@ -43,23 +43,17 @@ angular.module('dockingAdapter', [])
 
                 me.managedState.mainWindow.addEventListener('bounds-changing', function(data) {
                     //console.log('on the move ', data);
-
                     me.managedState.mainWindow.getBounds(function(bounds) {
-
                             //console.log('where im at', bounds);
-
                             fin.desktop.InterApplicationBus.publish("dock-window-move", {
                                 bounds: bounds,
                                 name: me.managedState.mainWindow.name
                             });
-
-
                         },
                         function(err) {
                             console.log('the err', err);
                         });
                 }); //end bounds changing
-
 
 
                 var draggableArea = document.querySelector('.container'),
@@ -124,7 +118,7 @@ angular.module('dockingAdapter', [])
                         var destination = {
                             top: me.managedState.dockingTarget.bounds.top,
                             left: me.managedState.dockingTarget.bounds.left + me.managedState.dockingTarget.bounds.width,
-                            duration: 500
+                            duration: 100
                         };
 
                         me.managedState.mainWindow.animate({
@@ -134,58 +128,48 @@ angular.module('dockingAdapter', [])
                                 interrupt: true
                             },
                             function() {
-
                                 me.managedState.mainWindow.getBounds(function(bounds) {
+                                    var topGood = (bounds.top === me.managedState.dockingTarget.bounds.top),
+                                        leftGood = (bounds.left === me.managedState.dockingTarget.bounds.left + me.managedState.dockingTarget.bounds.width);
 
-                                        var topGood = (bounds.top === me.managedState.dockingTarget.bounds.top),
-                                            leftGood = (bounds.left === me.managedState.dockingTarget.bounds.left + me.managedState.dockingTarget.bounds.width);
+                                    if (topGood && leftGood) {
+                                        //console.warn('this is the DockingTarget in the callback:', me.managedState.dockingTarget);
+                                        var dockingWindow = fin.desktop.Window.wrap(me.managedState.dockingTarget.dockee.app_uuid, me.managedState.dockingTarget.dockee.name);
 
-                                        if (topGood && leftGood) {
+                                        //debugger
+                                        me.managedState.mainWindow.joinGroup(dockingWindow, function() {
+                                            //console.warn('this is the DockingTarget in the JOIN callback:', dockingWindow, me.managedState);
 
-                                            //console.warn('this is the DockingTarget in the callback:', me.managedState.dockingTarget);
-                                            var dockingWindow = fin.desktop.Window.wrap(me.managedState.dockingTarget.dockee.app_uuid, me.managedState.dockingTarget.dockee.name);
+                                            //dock.style.visibility = 'hidden';
+                                            undock.style.visibility = 'visible';
 
-                                            //debugger
+                                            fin.desktop.InterApplicationBus.publish("dock-docked", {
+                                                target: me.managedState.dockingTarget.dockee.name,
+                                                name: me.managedState.mainWindow.name
+                                            });
 
-                                            me.managedState.mainWindow.joinGroup(dockingWindow, function() {
+                                            me.managedState.currentlyDocking = false;
+                                            me.managedState.isDocked = true;
+                                            me.managedState.canDock = false;
+                                            //me.managedState.dockingTarget = false;
 
-                                                    //console.warn('this is the DockingTarget in the JOIN callback:', dockingWindow, me.managedState);
+                                            // me.managedState.mainWindow.animate({
+                                            //     opacity: 1
+                                            // });
 
-                                                    //dock.style.visibility = 'hidden';
-                                                    undock.style.visibility = 'visible';
-
-                                                    fin.desktop.InterApplicationBus.publish("dock-docked", {
-                                                        target: me.managedState.dockingTarget.dockee.name,
-                                                        name: me.managedState.mainWindow.name
-                                                    });
-
-                                                    me.managedState.currentlyDocking = false;
-                                                    me.managedState.isDocked = true;
-                                                    me.managedState.canDock = false;
-                                                    //me.managedState.dockingTarget = false;
-
-                                                    // me.managedState.mainWindow.animate({
-                                                    //     opacity: 1
-                                                    // });
-
-                                                    //console.warn('it grouped just fine');
-                                                },
-                                                function(reason) {
-                                                    console.warn('it did not group', reason);
-                                                });
-
-
-
-                                        } //end if top left good
-                                        else {
-                                            console.warn('im not where I thought Id be ', bounds, me.managedState.dockingTarget.bounds);
-                                        }
-                                    },
-                                    function(err) {
-                                        console.warn('the err of the bounds ', err);
-                                    });
-
-
+                                            //console.warn('it grouped just fine');
+                                        },
+                                        function(reason) {
+                                            console.warn('it did not group', reason);
+                                        });
+                                    } //end if top left good
+                                    else {
+                                        console.warn('im not where I thought Id be ', bounds, me.managedState.dockingTarget.bounds);
+                                    }
+                                },
+                                function(err) {
+                                    console.warn('the err of the bounds ', err);
+                                });
                             }); //end animate
 
                     } //end if docking target
