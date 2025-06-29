@@ -1,6 +1,7 @@
 {
   "name": "headlessdocker",
   "version": "0.0.0",
+  "dependencies": {},
   "devDependencies": {
     "grunt": "^1.6.1",
     "grunt-autoprefixer": "^3.0.4",
@@ -11,34 +12,33 @@
     "grunt-contrib-connect": "^3.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "^4.0.0",
-    "grunt-contrib-htmlmin": "^3.1.0",
+    "grunt-contrib-htmlmin": "^4.0.0",
     "grunt-contrib-imagemin": "^4.0.0",
     "grunt-contrib-jshint": "^3.0.0",
     "grunt-contrib-uglify": "^5.0.1",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-filerev": "^2.3.1",
-    "grunt-google-cdn": "^0.4.3",
+    "grunt-google-cdn": "^0.7.0",
     "grunt-karma": "^4.0.0",
     "grunt-newer": "^1.3.0",
     "grunt-ng-annotate": "^4.0.0",
     "grunt-ngdocs": "^0.2.9",
     "grunt-shell": "^3.0.1",
-    "grunt-svgmin": "^7.0.0",
+    "grunt-svgmin": "^8.0.0",
     "grunt-usemin": "^3.0.0",
     "grunt-wiredep": "^3.0.1",
     "jasmine-core": "^5.1.0",
     "jshint-stylish": "^2.2.0",
     "karma": "^6.4.0",
-    "karma-phantomjs-launcher": "^1.0.4",
     "karma-jasmine": "^4.0.1",
+    "karma-phantomjs-launcher": "^1.0.4",
     "load-grunt-tasks": "^5.1.0",
-    "phantomjs-prebuilt": "^2.1.16",
     "time-grunt": "^2.0.0"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "OPENSSL_CONF=/dev/null grunt test --force"
+    "test": "grunt test"
   }
 }
